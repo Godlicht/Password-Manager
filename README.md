@@ -13,7 +13,7 @@
   <li>json</li>
   <li>os</li>
   <li>webbrowser</li>
-  <li><strong>cryptography</strong> (external, install with pip)</li>
+  <li>cryptography</li>
 </ul>
 
 <h2>How to Run</h2>
