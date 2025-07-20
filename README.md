@@ -1,31 +1,25 @@
 <h1>Password Manager</h1>
 
-<h2> Requirements </h2>
+<h2>Requirements</h2>
+<ul>
+  <li>Python 3.13+</li>
+</ul>
 
-- Python 3.13
+<h2>Used Python Libraries</h2>
+<ul>
+  <li>tkinter</li>
+  <li>secrets</li>
+  <li>string</li>
+  <li>json</li>
+  <li>os</li>
+  <li>webbrowser</li>
+  <li><strong>cryptography</strong> (external, install with pip)</li>
+</ul>
 
-<h2> Used built in Python libraries: </h2>
-
--tkinter
-
--secrets
-
--string
-
--cryptography
-
--json
-
--os
-
--webbrowser
-
-<h2> How to run </h2>
-
+<h2>How to Run</h2>
+<pre>
 git clone https://github.com/godlicht/password-manager.git
-
 cd password-manager
-
-python "Password Manager.py"
-
 pip install cryptography
+python "Password Manager.py"
+</pre>
