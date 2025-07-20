@@ -5,11 +5,17 @@ REQUIREMENTS
 Used built in Python libraries:
 
 -tkinter
+
 -secrets
+
 -string
+
 -cryptography
+
 -json
+
 -os
+
 -webbrowser
 
 How to run
