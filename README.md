@@ -19,3 +19,5 @@ git clone https://github.com/godlicht/password-manager.git
 cd password-manager
 
 python "Password Manager.py"
+
+pip install cryptography
