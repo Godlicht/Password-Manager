@@ -11,14 +11,15 @@ from cryptography.fernet import Fernet
 KEY_FILE = "secret.key"
 
 def load_key():
-    if not os.path.exists(KEY_FILE):
+    if os.path.exists(KEY_FILE):
+        with open(KEY_FILE, "rb") as key_file:
+            key = key_file.read()
+    else:
         key = Fernet.generate_key()
         with open(KEY_FILE, "wb") as key_file:
             key_file.write(key)
-    else:
-        with open(KEY_FILE, "rb") as key_file:
-            key = key_file.read()
     return Fernet(key)
+
 
 fernet = load_key()
 
