@@ -5,6 +5,22 @@ import secrets
 import json
 import os
 import webbrowser
+from cryptography.fernet import Fernet
+
+# ENCRYPTION KEY
+KEY_FILE = "secret.key"
+
+def load_key():
+    if not os.path.exists(KEY_FILE):
+        key = Fernet.generate_key()
+        with open(KEY_FILE, "wb") as key_file:
+            key_file.write(key)
+    else:
+        with open(KEY_FILE, "rb") as key_file:
+            key = key_file.read()
+    return Fernet(key)
+
+fernet = load_key()
 
 # WINDOW
 window = tk.Tk()
@@ -44,12 +60,14 @@ def save_button():
     password = password_entry.get()
 
     if address and username and password:
+        encrypted_password = fernet.encrypt(password.encode()).decode()
+
         table.insert('', 'end', values=(address, username, password))
 
         entry = {
             "address": address,
             "username": username,
-            "password": password
+            "password": encrypted_password
         }
 
         data = []
@@ -73,6 +91,7 @@ def save_button():
 
     else:
         messagebox.showerror("Error", "Please fill all fields")
+
 # DATA STORAGE
 def load_data():
     if os.path.exists("passwords.json"):
@@ -80,14 +99,20 @@ def load_data():
             try:
                 data = json.load(file)
                 for entry in data:
+                    try:
+                        decrypted_password = fernet.decrypt(entry["password"].encode()).decode()
+                    except Exception:
+                        decrypted_password = "[Decryption Failed]"
+
                     table.insert('', 'end', values=(
-                        entry["address"], entry["username"], entry["password"]
+                        entry["address"], entry["username"], decrypted_password
                     ))
             except json.JSONDecodeError:
                 pass
 
 table.pack(fill='both', expand=True)
 load_data()
+
 # REDIRECT AND COPY TO CLIPBOARD
 def on_table_click(event):
     item_id = table.identify_row(event.y)
